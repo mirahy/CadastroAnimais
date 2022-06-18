@@ -15,9 +15,8 @@ import javax.persistence.Id;
  * @author 02457680174
  */
 @Entity
-public class Animal implements Serializable{
-    
-    
+public class Animal implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -65,6 +64,5 @@ public class Animal implements Serializable{
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    
-    
+
 }

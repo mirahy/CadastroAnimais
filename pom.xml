@@ -72,7 +72,5 @@
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb-j5 -->
-       
-
     </dependencies>
 </project>
