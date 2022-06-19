@@ -2,6 +2,10 @@ package br.edu.ifms.cadastroanimais.dao;
 
 import java.util.List;
 
+/**
+ *
+ * @author gustavo
+ */
 public interface IDao<T> {
 
     T inserir(T object);

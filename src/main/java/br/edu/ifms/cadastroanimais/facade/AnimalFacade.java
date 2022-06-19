@@ -10,6 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+/**
+ *
+ * @author gustavo
+ */
 public class AnimalFacade {
 
     private IAnimalDao dao;
@@ -51,11 +55,11 @@ public class AnimalFacade {
             JTextField txtSexo,
             JTextField txtTamanho) {
         Animal a = dao.buscarPorId(id);
-        txtId.setText(a.getId().toString());
-        txtNome.setText(a.getNome());
-        txtRaca.setText(a.getRaca());
-        txtSexo.setText(a.getSexo());
-        txtTamanho.setText(a.getTamanho());
+        txtId.setText(a.getId().toString().toUpperCase());
+        txtNome.setText(a.getNome().toUpperCase());
+        txtRaca.setText(a.getRaca().toUpperCase());
+        txtSexo.setText(a.getSexo().toUpperCase());
+        txtTamanho.setText(a.getTamanho().toUpperCase());
     }
 
     public Boolean salvar(
@@ -69,10 +73,10 @@ public class AnimalFacade {
 
         Animal animal = new Animal();
         animal.setId(id);
-        animal.setNome(txtNome.getText());
-        animal.setRaca(txtRaca.getText());
-        animal.setSexo(txtSexo.getText());
-        animal.setTamanho(txtTamanho.getText());
+        animal.setNome(txtNome.getText().toUpperCase());
+        animal.setRaca(txtRaca.getText().toUpperCase());
+        animal.setSexo(txtSexo.getText().toUpperCase());
+        animal.setTamanho(txtTamanho.getText().toUpperCase());
         if (!isId) {
             dao.inserir(animal);
         } else {

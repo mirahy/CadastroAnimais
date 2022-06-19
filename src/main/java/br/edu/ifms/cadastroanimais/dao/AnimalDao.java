@@ -1,14 +1,19 @@
 package br.edu.ifms.cadastroanimais.dao;
 
+import br.edu.ifms.cadastroanimais.database.Conexao;
 import br.edu.ifms.cadastroanimais.model.Animal;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.hibernate.HibernateException;
 
+/**
+ *
+ * @author gustavo
+ */
 public class AnimalDao implements IAnimalDao {
     
-private static final String JPQL = "SELECT c FROM Animal c";
+private static final String JPQL = "SELECT c FROM Animal c order by id";
 
     private EntityManager getEntityManager() {
         return Conexao.createEntityManager();
@@ -21,7 +26,7 @@ private static final String JPQL = "SELECT c FROM Animal c";
         List<Animal> animais = null;
         Boolean hasNome = nome != null && !nome.isBlank() && !nome.isEmpty();
         if (hasNome) {
-            condicao = " WHERE c.nome LIKE ?1 ";
+            condicao = " WHERE c.nome LIKE ?1 order by id";
         }
         Query query = em.createQuery(JPQL + condicao);
         if (hasNome) {

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.edu.ifms.cadastroanimais.view;
 
 import br.edu.ifms.cadastroanimais.dao.AnimalDao;
@@ -25,21 +21,24 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
     public TelaAnimalListagem() {
         model = new AnimalHibernateTableModel();
         facade = new AnimalFacade();
+        this.requestFocus();
         initComponents();
 
         mediator.registerAlterar(btAlterar);
         mediator.registerExcluir(btExcluir);
+        model.fireTableDataChanged();
 
-        model.refresh(edtAnimal.getText());
         refresh();
     }
 
     private void refresh() {
-
-        if (tblAnimais.getSelectedRow() > -1) {
+        int row = tblAnimais.getSelectedRow();
+        if (row > -1) {
             mediator.ativarBotoesConsulta();
+          jPanel4.setVisible(true);
         } else {
             mediator.desativarBotoes();
+            jPanel4.setVisible(false);
         }
     }
 
@@ -67,6 +66,7 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
         btExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 102));
 
@@ -94,6 +94,7 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         btBuscar.setText("Buscar");
+        btBuscar.setFocusable(false);
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btBuscarActionPerformed(evt);
@@ -101,6 +102,7 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
         });
 
         btCadastrar.setText("Cadastrar");
+        btCadastrar.setFocusable(false);
         btCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCadastrarActionPerformed(evt);
@@ -144,6 +146,12 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
         tblAnimais.setModel(model);
+        tblAnimais.setFocusable(false);
+        tblAnimais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAnimaisMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblAnimais);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -163,8 +171,9 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btAlterar.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifms/cadastroanimais/img/icons8-editar-20.png"))); // NOI18N
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+
+        btAlterar.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         btAlterar.setText("Alterar");
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,8 +181,7 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
             }
         });
 
-        btExcluir.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/ifms/cadastroanimais/img/icons8-lixo-20.png"))); // NOI18N
+        btExcluir.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,7 +242,7 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         AnimalDao dao = new AnimalDao();//    
-        model.refresh(edtAnimal.getText());
+        model.refresh(edtAnimal.getText().toUpperCase());
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -259,8 +267,13 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         TelaFormAnimal form = facade.abrirFormulario(this, facade);
         form.setVisible(true);
+        model.refresh(null);
         refresh();
     }//GEN-LAST:event_btCadastrarActionPerformed
+
+    private void tblAnimaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAnimaisMouseClicked
+        refresh();
+    }//GEN-LAST:event_tblAnimaisMouseClicked
 
     /**
      * @param args the command line arguments
@@ -294,6 +307,7 @@ public class TelaAnimalListagem extends javax.swing.JFrame {
             @Override
             public void run() {
                 new TelaAnimalListagem().setVisible(true);
+                
             }
         });
     }
