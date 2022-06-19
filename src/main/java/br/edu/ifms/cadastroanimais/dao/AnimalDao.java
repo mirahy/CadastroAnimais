@@ -13,7 +13,9 @@ import org.hibernate.HibernateException;
  */
 public class AnimalDao implements IAnimalDao {
     
-private static final String JPQL = "SELECT c FROM Animal c order by id";
+private static final String JPQL = "SELECT c FROM Animal c ";
+
+//order by id
 
     private EntityManager getEntityManager() {
         return Conexao.createEntityManager();
@@ -26,7 +28,7 @@ private static final String JPQL = "SELECT c FROM Animal c order by id";
         List<Animal> animais = null;
         Boolean hasNome = nome != null && !nome.isBlank() && !nome.isEmpty();
         if (hasNome) {
-            condicao = " WHERE c.nome LIKE ?1 order by id";
+            condicao = " WHERE c.nome LIKE ?1 or c.raca LIKE ?1 or c.tamanho LIKE ?1 or c.sexo LIKE ?1 ";
         }
         Query query = em.createQuery(JPQL + condicao);
         if (hasNome) {
