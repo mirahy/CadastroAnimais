@@ -18,7 +18,7 @@ public class Conexao {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("animais");
 
     private Conexao() throws SQLException {
-        String url = "jdbc:postgresql://127.0.0.1/animais?user=postgres&password=chiquitin123";
+        String url = "jdbc:postgresql://127.0.0.1/animais?user=postgres&password=postgres";
         this.conn = DriverManager.getConnection(url);
     }
 
