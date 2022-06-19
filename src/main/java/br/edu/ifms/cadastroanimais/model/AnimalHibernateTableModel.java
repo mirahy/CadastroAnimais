@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifms.cadastroanimais.model;
 
 import br.edu.ifms.cadastroanimais.dao.AnimalDao;
@@ -17,7 +13,7 @@ public class AnimalHibernateTableModel extends AbstractTableModel {
 
     private IAnimalDao dao;
     private List<Animal> lista;
-    private String[] colunas = {"Id", "nome", "raca", "sexo", "tamanho"};
+    private String[] colunas = {"ID", "NOME", "RAÇA", "SEXO", "TAMANHO"};
 
     public AnimalHibernateTableModel() {
         dao = new AnimalDao();
@@ -57,6 +53,7 @@ public class AnimalHibernateTableModel extends AbstractTableModel {
         lista.clear();
         lista.addAll(dao.buscarPorNome(nome));
         fireTableStructureChanged();
+        fireTableDataChanged();
     }
 
     @Override
