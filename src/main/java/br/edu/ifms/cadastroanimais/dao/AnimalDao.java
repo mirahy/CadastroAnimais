@@ -28,7 +28,7 @@ private static final String JPQL = "SELECT c FROM Animal c ";
         List<Animal> animais = null;
         Boolean hasNome = nome != null && !nome.isBlank() && !nome.isEmpty();
         if (hasNome) {
-            condicao = " WHERE c.nome LIKE ?1 or c.raca LIKE ?1 or c.tamanho LIKE ?1 or c.sexo LIKE ?1 ";
+            condicao = " WHERE c.nome LIKE ?1 or c.raca LIKE ?1 or c.tamanho LIKE ?1 or c.sexo LIKE ?1 order by id";
         }
         Query query = em.createQuery(JPQL + condicao);
         if (hasNome) {
